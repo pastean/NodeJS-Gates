@@ -1,0 +1,41 @@
+<html>
+
+<head>
+     <title>Acasa</title>
+     <link rel="stylesheet" type="text/css" href="/style.css" />
+</head>
+
+<body>
+     <div onclick="mainGateButtonHandler()" class="maingate_button">
+	<span>Deschide poarta</span>
+	<div class="rotate"></div>
+</div>
+</body>
+
+<style>
+</style>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+
+
+     const socket = io();
+     var mainGateButton = document.getElementsByClassName('maingate_button')[0];
+
+     function mainGateButtonHandler() {
+
+          mainGateButton.classList.add('loading');
+          setTimeout(function(){ mainGateButton.classList.remove('loading'); mainGateButton.classList.add('checked')}, 1500)
+          setTimeout(function(){ mainGateButton.classList.remove('checked');}, 2500)
+
+          function disableClickHandler(event) {
+               event.stopPropagation();
+               event.preventDefault();
+          }
+
+          socket.emit('mainGateButtonClick');
+          console.log('called frontend');
+     }
+</script>
+
+
+</html>
