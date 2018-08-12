@@ -31,7 +31,7 @@ app.get('/api/clickbutton', function(req, res) {
   state = 'closed';
   res.setHeader('Content-Type', 'application/json');
   res.end(state);
-  outputSequence(7, '10', 1000);
+  outputSequence(7, '10', 500);
 });
 
 app.get('/api/status', function(req, res) {
@@ -46,7 +46,7 @@ function outputSequence(pin, seq, timeout) {
 }
 
 function gpioWrite(gpio, pin, seq, timeout) {
-  if (!seq || seq.length <= 0) { 
+  if (!seq || seq.length <= 0) {
     console.log('closing pin:', pin);
     gpio.unexport();
     return;
@@ -68,31 +68,31 @@ app.use(function(req, res, next) {
   next(err);
 });
 
-function takeSnaps() {
-  var autoSnapshot = setTimeout(function() {
-    var imgPath = path.join(__dirname, 'public/images');
-    var cmd = 'raspistill -w 640 -h 480 -q 80 -o ' + imgPath + '/garage.jpg';
-    var exec = require('child_process').exec;
-    exec(cmd, function (error, stdout, stderr) {
-      if (error !== null) {
-        console.log('exec error: ' + error);
-        return;
-      }
-      io.emit('snapshot', 'ready');
-      console.log('snapshot created...');
-      if(startTakingSnaps) {
-        takeSnaps();
-      }
-    });
-  }, 0);
-
-  return autoSnapshot;
-}
+// function takeSnaps() {
+//   var autoSnapshot = setTimeout(function() {
+//     var imgPath = path.join(__dirname, 'public/images');
+//     var cmd = 'raspistill -w 640 -h 480 -q 80 -o ' + imgPath + '/garage.jpg';
+//     var exec = require('child_process').exec;
+//     exec(cmd, function (error, stdout, stderr) {
+//       if (error !== null) {
+//         console.log('exec error: ' + error);
+//         return;
+//       }
+//       io.emit('snapshot', 'ready');
+//       console.log('snapshot created...');
+//       if(startTakingSnaps) {
+//         takeSnaps();
+//       }
+//     });
+//   }, 0);
+//
+//   return autoSnapshot;
+// }
 
 io.on('connection', function(socket){
   console.log('a user connected');
   startTakingSnaps = true;
-  takeSnaps();
+  //takeSnaps();
 
   socket.on('disconnect', function(){
     console.log('user disconnected');
