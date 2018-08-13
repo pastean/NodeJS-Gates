@@ -6,7 +6,8 @@ html, body {
   position: relative;
   height: 100vh;
   font-family: "Roboto", sans-serif;
-  background-color: #292A38; }
+  background-color: #292A38;
+  background-size: cover; }
 
 .maingate_button {
   position: relative;
