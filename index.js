@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
 io.on('connection', socket => {
 	console.log('user connected')
 	socket.on('mainGateButtonClick', () => {
-		 // outputSequence(7, '10', 1000);
+		 outputSequence(7, '10', 1000);
 
 		 // var date = date.getDate(); //date as a number 1-31
 		 // var day = date.getDay(); //day as a number 0-1

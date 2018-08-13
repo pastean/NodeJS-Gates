@@ -5,7 +5,8 @@ html, body {
   justify-content: center;
   position: relative;
   height: 100vh;
-  font-family: "Roboto", sans-serif; }
+  font-family: "Roboto", sans-serif;
+  background-color: #292A38; }
 
 .maingate_button {
   position: relative;
@@ -59,7 +60,7 @@ html, body {
   left: 0;
   bottom: 0;
   z-index: -1;
-  background-color: #fff;
+  background-color: #292A38;
   border-radius: 100%; }
 
 .loading::before {

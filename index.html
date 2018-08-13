@@ -7,7 +7,7 @@
 
 <body>
      <div onclick="mainGateButtonHandler()" class="maingate_button">
-	<span>Deschide poarta</span>
+	     <span>Deschide poarta</span>
 	<div class="rotate"></div>
 </div>
 </body>
@@ -20,20 +20,19 @@
 
      const socket = io();
      var mainGateButton = document.getElementsByClassName('maingate_button')[0];
-
+     var buttonDisabled = false;
      function mainGateButtonHandler() {
 
-          mainGateButton.classList.add('loading');
-          setTimeout(function(){ mainGateButton.classList.remove('loading'); mainGateButton.classList.add('checked')}, 1500)
-          setTimeout(function(){ mainGateButton.classList.remove('checked');}, 2500)
-
-          function disableClickHandler(event) {
-               event.stopPropagation();
-               event.preventDefault();
+          if (!buttonDisabled) {
+               buttonDisabled = true;
+               mainGateButton.classList.add('loading');
+               setTimeout(function(){ mainGateButton.classList.remove('loading'); mainGateButton.classList.add('checked')}, 1500)
+               setTimeout(function(){ mainGateButton.classList.remove('checked');}, 2500)
+               setTimeout(function(){ buttonDisabled = false}, 3000)
+               socket.emit('mainGateButtonClick');
+               console.log('called frontend');
           }
 
-          socket.emit('mainGateButtonClick');
-          console.log('called frontend');
      }
 </script>
 
