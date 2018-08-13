@@ -1,34 +1,35 @@
 <html>
 
 <head>
+     <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0"/>
      <title>Acasa</title>
      <link rel="stylesheet" type="text/css" href="/style.css" />
 </head>
 
 <body>
-     <div onclick="mainGateButtonHandler()" class="maingate_button">
+     <div class="maingate_button">
 	     <span>Deschide poarta</span>
 	<div class="rotate"></div>
 </div>
 </body>
 
-<style>
-</style>
 <script src="/socket.io/socket.io.js"></script>
 <script>
 
 
      const socket = io();
      var mainGateButton = document.getElementsByClassName('maingate_button')[0];
+     mainGateButton.addEventListener('click', mainGateButtonHandler, true)
      var buttonDisabled = false;
      function mainGateButtonHandler() {
 
           if (!buttonDisabled) {
                buttonDisabled = true;
+               mainGateButton.removeEventListener('click', mainGateButtonHandler, true);
                mainGateButton.classList.add('loading');
                setTimeout(function(){ mainGateButton.classList.remove('loading'); mainGateButton.classList.add('checked')}, 1500)
                setTimeout(function(){ mainGateButton.classList.remove('checked');}, 2500)
-               setTimeout(function(){ buttonDisabled = false}, 3000)
+               setTimeout(function(){ buttonDisabled = false; mainGateButton.addEventListener('click', mainGateButtonHandler, true)}, 3000)
                socket.emit('mainGateButtonClick');
                console.log('called frontend');
           }

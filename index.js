@@ -45,27 +45,27 @@ io.on('connection', socket => {
 	});
 })
 
-//GPIO FUNCTIONS
-// function outputSequence(pin, seq, timeout) {
-//      var gpio = new GPIO(4, 'out');
-//      gpioWrite(gpio, pin, seq, timeout);
-// }
-//
-// function gpioWrite(gpio, pin, seq, timeout) {
-//      if (!seq || seq.length <= 0) {
-//           console.log('closing pin:', pin);
-//           gpio.unexport();
-//           return;
-//      }
-//
-//      var value = seq.substr(0, 1);
-//      seq = seq.substr(1);
-//      setTimeout(function() {
-//           console.log('gpioWrite, value:', value, ' seq:', seq);
-//           gpio.writeSync(value);
-//           gpioWrite(gpio, pin, seq, timeout);
-//      }, timeout);
-// }
+// GPIO FUNCTIONS
+function outputSequence(pin, seq, timeout) {
+     var gpio = new GPIO(4, 'out');
+     gpioWrite(gpio, pin, seq, timeout);
+}
+
+function gpioWrite(gpio, pin, seq, timeout) {
+     if (!seq || seq.length <= 0) {
+          console.log('closing pin:', pin);
+          gpio.unexport();
+          return;
+     }
+
+     var value = seq.substr(0, 1);
+     seq = seq.substr(1);
+     setTimeout(function() {
+          console.log('gpioWrite, value:', value, ' seq:', seq);
+          gpio.writeSync(value);
+          gpioWrite(gpio, pin, seq, timeout);
+     }, timeout);
+}
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
